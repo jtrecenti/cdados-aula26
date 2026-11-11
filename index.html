@@ -1325,11 +1325,11 @@ Julio Trecenti
 </div>
 <div>
 <div class="caixa atencao fragment">
-<p><span class="rotulo">Pegadinha 1: o <span class="math inline">\(\mu_0\)</span></span></p>
+<p><span class="rotulo">Atenção ao <span class="math inline">\(\mu_0\)</span></span></p>
 <p>Testar <span class="math inline">\(\mu = 25\)</span> responde outra pergunta (“o consumo caiu?”). Com <span class="math inline">\(\mu_0 = 25\)</span>, <span class="math inline">\(t_{obs} = -8{,}32\)</span> e a rejeição seria fácil demais.</p>
 </div>
 <div class="caixa atencao fragment">
-<p><span class="rotulo">Pegadinha 2: uma ou duas caudas</span></p>
+<p><span class="rotulo">Uma ou duas caudas?</span></p>
 <p><span class="math inline">\(H_1\)</span> tem “<span class="math inline">\(&lt;\)</span>”: o valor crítico é <code>stats.t.ppf(alpha, df=n-1)</code>, e não <code>ppf(1 - alpha/2)</code>, que é do teste bicaudal.</p>
 </div>
 <div class="caixa ideia fragment">
@@ -1725,6 +1725,11 @@ mínimos quadrados
 </div>
 </div>
 <div style="flex:1.1">
+<div class="botoes botoes-am">
+<button id="tab-zoom">
+ampliar a tabela
+</button>
+</div>
 <div id="mmq-tab">
 
 </div>
@@ -1823,6 +1828,69 @@ a reta ajustada
 <p>Como verificar essas suposições? Pelos testes acima e pela <strong>análise de resíduos</strong>.</p>
 </div>
 </section>
+<section class="slide level2 denso">
+<h2>A distribuição da inclinação estimada</h2>
+<div class="colunas">
+<div>
+<div class="caixa">
+<p><span class="rotulo">Aula 25: a média, com <span class="math inline">\(\sigma\)</span> desconhecido</span></p>
+<p>Se <span class="math inline">\(X\)</span> é normal, <span class="math inline">\(\bar X \sim N\left(\mu, \dfrac{\sigma^2}{n}\right)\)</span>.</p>
+<p>Trocando <span class="math inline">\(\sigma\)</span> por <span class="math inline">\(S\)</span>, sob <span class="math inline">\(H_0: \mu = \mu_0\)</span>: <span class="math display">\[T = \frac{\bar X - \mu_0}{S/\sqrt n} \sim t_{(n-1)}\]</span></p>
+</div>
+<div class="caixa atencao fragment">
+<p><span class="rotulo">Mesma receita, outros graus de liberdade</span></p>
+<p>(estimativa − valor sob <span class="math inline">\(H_0\)</span>) / erro padrão. São <span class="math inline">\(n - 2\)</span> graus de liberdade porque a reta estima <strong>dois</strong> parâmetros, <span class="math inline">\(\beta_0\)</span> e <span class="math inline">\(\beta_1\)</span>. Na saída do <code>statsmodels</code>, o <span class="math inline">\(EP\)</span> é a coluna <code>std err</code> e o <span class="math inline">\(T\)</span> é a coluna <code>t</code>.</p>
+</div>
+</div>
+<div>
+<div class="caixa ideia">
+<p><span class="rotulo">Hoje: a inclinação</span></p>
+<div class="fragment">
+<p>Se os erros são normais (as suposições do slide anterior), <span class="math inline">\(\hat\beta_1 \sim N\left(\beta_1, \dfrac{\sigma^2}{S_{XX}}\right)\)</span>.</p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(\sigma^2\)</span> é desconhecido: estimamos por <span class="math inline">\(s^2 = \dfrac{SQRes}{n-2}\)</span>, e o erro padrão fica <span class="math inline">\(EP(\hat\beta_1) = \dfrac{s}{\sqrt{S_{XX}}}\)</span>.</p>
+</div>
+<div class="fragment">
+<p>Sob <span class="math inline">\(H_0: \beta_1 = 0\)</span>: <span class="math display">\[T = \frac{\hat\beta_1 - 0}{EP(\hat\beta_1)} \sim t_{(n-2)}\]</span></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2 denso">
+<h2>O teste da inclinação: arraste a reta</h2>
+<div class="colunas">
+<div>
+<div id="g-bsl">
+
+</div>
+</div>
+<div>
+<div id="g-bst">
+
+</div>
+</div>
+</div>
+<div class="colunas bt-ctrl">
+<div>
+<div class="ctrl">
+<p><label class="ctrl-rotulo">inclinação estimada, b1 = <b id="bt-b-v"></b></label> <input type="range" id="bt-b" min="-0.6" max="0.6" step="0.005" value="0.15"></p>
+</div>
+<div class="miudo">
+<p>Uma amostra com <span class="math inline">\(n = 20\)</span>: só a inclinação muda; o espalhamento em torno da reta, e portanto o <span class="math inline">\(EP(\hat\beta_1) = 0{,}12\)</span>, fica o mesmo. É o teste bicaudal do slide do valor-p das duas pontas.</p>
+</div>
+</div>
+<div>
+<div id="bt-contas" class="contas">
+
+</div>
+<div id="bt-decisao" class="regra-viva">
+
+</div>
+</div>
+</div>
+</section>
 <section class="slide level2">
 <h2>Análise de resíduos</h2>
 <div class="colunas">
@@ -1853,8 +1921,12 @@ não independência
 <div id="res-texto" class="regra-viva">
 
 </div>
+<div class="miudo">
+<p>Avance com as setas para ver um padrão por vez, ou clique nos botões.</p>
 </div>
 </div>
+</div>
+<p><span class="fragment passo"></span> <span class="fragment passo"></span> <span class="fragment passo"></span> <span class="fragment passo"></span></p>
 </section>
 <section class="slide level2 secao">
 <h2>Qualidade do ajuste</h2>
@@ -1879,11 +1951,16 @@ não independência
 <p><strong>Estimar <span class="math inline">\(Y\)</span> pela reta <span class="math inline">\(\hat Y = \hat\beta_0 + \hat\beta_1 x\)</span>.</strong> O valor predito fica bem mais perto do observado.</p>
 </div>
 <div>
-<p>Para cada ponto, o desvio total se divide em duas partes: <span class="math inline">\(Y_i - \bar Y = (\hat Y_i - \bar Y) + (Y_i - \hat Y_i)\)</span>.</p>
+<p>Para cada ponto, o desvio total se <strong>quebra</strong> em duas partes:</p>
+<div class="quebra q1">
+<p><span class="ft"><span class="math inline">\(Y_i - \bar Y\)</span></span><span class="op"><span class="math inline">\(=\)</span></span><span class="fr"><span class="math inline">\((\hat Y_i - \bar Y)\)</span></span><span class="op"><span class="math inline">\(+\)</span></span><span class="fe"><span class="math inline">\((Y_i - \hat Y_i)\)</span></span><span class="ft rot">total</span><span class="vazio"></span><span class="fr rot">explicado pela reta</span><span class="vazio"></span><span class="fe rot">resíduo</span></p>
+</div>
 </div>
 <div>
-<p>Somando os quadrados em todos os pontos:</p>
-<p><span class="math display">\[\underbrace{\sum (Y_i - \bar Y)^2}_{SQT} = \underbrace{\sum (\hat Y_i - \bar Y)^2}_{SQReg} + \underbrace{\sum (Y_i - \hat Y_i)^2}_{SQRes}\]</span></p>
+<p>Elevando ao quadrado e somando em todos os pontos (os termos cruzados somam zero):</p>
+<div class="quebra q2">
+<p><span class="ft"><span class="math inline">\(\sum (Y_i - \bar Y)^2\)</span></span><span class="op"><span class="math inline">\(=\)</span></span><span class="fr"><span class="math inline">\(\sum (\hat Y_i - \bar Y)^2\)</span></span><span class="op"><span class="math inline">\(+\)</span></span><span class="fe"><span class="math inline">\(\sum (Y_i - \hat Y_i)^2\)</span></span><span class="ft rot">SQT</span><span class="vazio"></span><span class="fr rot">SQReg</span><span class="vazio"></span><span class="fe rot">SQRes</span></p>
+</div>
 </div>
 </div>
 <div id="qa-barras" class="fragment" data-fragment-index="3">
@@ -1896,27 +1973,37 @@ não independência
 </div>
 <p><span class="fragment passo" data-fragment-index="1"></span> <span class="fragment passo" data-fragment-index="2"></span> <span class="fragment passo" data-fragment-index="3"></span></p>
 </section>
-<section class="slide level2">
+<section class="slide level2 denso">
 <h2>Coeficiente de determinação</h2>
 <div class="colunas">
 <div>
-<p><span class="math display">\[R^2 = \frac{SQReg}{SQT} = \frac{SQT - SQRes}{SQT} = 1 - \frac{SQRes}{SQT}\]</span></p>
+<div class="quebra-r2">
+<p><span class="peca p0"><span class="math inline">\(R^2 = \dfrac{SQReg}{SQT}\)</span></span><span class="peca p1"><span class="math inline">\(= \dfrac{SQT - SQRes}{SQT}\)</span></span><span class="peca p2"><span class="math inline">\(= 1 - \dfrac{SQRes}{SQT}\)</span></span></p>
+</div>
+<div id="r2-barra">
+
+</div>
 <div class="caixa ideia">
 <p><span class="rotulo">Interpretação</span></p>
 <p>O <span class="math inline">\(R^2\)</span> mede a <strong>fração da variação total de <span class="math inline">\(Y\)</span> explicada pela regressão</strong>, e <span class="math inline">\(0 \le R^2 \le 1\)</span>.</p>
 </div>
 </div>
 <div>
-<div class="caixa exercicio fragment">
+<div class="caixa exercicio fragment" data-fragment-index="3">
 <p><span class="rotulo">Na mortalidade infantil</span></p>
 <p><span class="math inline">\(R^2 = 0{,}986\)</span>: a taxa de analfabetismo explica 98,6% da variação da taxa de mortalidade infantil entre as cinco regiões.</p>
 </div>
-<div class="caixa fragment">
+<div class="caixa fragment" data-fragment-index="4">
 <p><span class="rotulo">Os extremos</span></p>
 <p><span class="math inline">\(R^2 = 0\)</span>: a reta não melhora nada a média <span class="math inline">\(\bar Y\)</span> (<span class="math inline">\(SQRes = SQT\)</span>). <span class="math inline">\(R^2 = 1\)</span>: todos os pontos sobre a reta (<span class="math inline">\(SQRes = 0\)</span>).</p>
 </div>
+<div class="caixa ideia fragment" data-fragment-index="5">
+<p><span class="rotulo">Na regressão linear simples, <span class="math inline">\(R^2 = r^2\)</span></span></p>
+<p>O <span class="math inline">\(R^2\)</span> é o quadrado da correlação entre <span class="math inline">\(x\)</span> e <span class="math inline">\(y\)</span>: na mortalidade, <span class="math inline">\(0{,}993^2 = 0{,}986\)</span>; na renda e CO₂, <span class="math inline">\(0{,}749^2 = 0{,}561\)</span>. Na regressão múltipla, essa conta deixa de valer.</p>
 </div>
 </div>
+</div>
+<p><span class="fragment passo" data-fragment-index="1"></span> <span class="fragment passo" data-fragment-index="2"></span></p>
 </section>
 <section class="slide level2">
 <h2>Atenção: associação não é causalidade</h2>
@@ -2025,15 +2112,21 @@ não independência
 <p><strong><code>P&gt;|t|</code></strong>: o valor-p de <span class="math inline">\(H_0: \beta_1 = 0\)</span> contra <span class="math inline">\(H_1: \beta_1 \neq 0\)</span>. Para a renda, 0,000: rejeitamos <span class="math inline">\(H_0\)</span>, a renda é <strong>significante</strong> para explicar a emissão.</p>
 </div>
 <div>
+<p><strong><code>[0.025  0.975]</code></strong>: o <strong>intervalo de confiança de 95%</strong> de cada coeficiente, <span class="math inline">\(\hat\beta \pm t_{0{,}975;\,184} \times\)</span> <code>std err</code>. Para a renda, de 0,212 a 0,275: não contém o zero, coerente com rejeitar <span class="math inline">\(H_0: \beta_1 = 0\)</span> a 5%. Para o intercepto, de −0,178 a 1,490: contém o zero, e o valor-p é 0,123.</p>
+</div>
+<div>
 <p><strong><code>R-squared</code></strong> = 0,561: a renda explica 56% da variação da emissão; 44% fica sem explicação. Com uma só variável, o <span class="math inline">\(R^2\)</span> ajustado é quase igual.</p>
 </div>
 <div>
-<p><strong><code>Prob(Omnibus)</code></strong> e <strong><code>Prob(JB)</code></strong>: valores-p dos testes de normalidade dos resíduos, com <span class="math inline">\(H_0\)</span>: os resíduos são normais. Ambos <span class="math inline">\(&lt; 0{,}001\)</span>: rejeitamos a normalidade. <strong><code>Durbin-Watson</code></strong> perto de 2 não indica dependência entre os erros.</p>
+<p><strong><code>Prob(Omnibus)</code></strong> e <strong><code>Prob(JB)</code></strong>: valores-p dos testes de <strong>normalidade</strong> dos resíduos, com <span class="math inline">\(H_0\)</span>: os resíduos são normais. Ambos <span class="math inline">\(&lt; 0{,}001\)</span>: rejeitamos a normalidade.</p>
+</div>
+<div>
+<p><strong><code>Durbin-Watson</code></strong> = 2,051: avalia a <strong>independência</strong> dos erros. Vai de 0 a 4; perto de 2 indica que não há correlação entre erros vizinhos. Abaixo de 1,5 ou acima de 2,5, desconfie. Só faz sentido quando as observações têm uma ordem (tempo, por exemplo).</p>
 </div>
 </div>
 </div>
 </div>
-<p><span class="fragment passo"></span> <span class="fragment passo"></span> <span class="fragment passo"></span> <span class="fragment passo"></span> <span class="fragment passo"></span></p>
+<p><span class="fragment passo"></span> <span class="fragment passo"></span> <span class="fragment passo"></span> <span class="fragment passo"></span> <span class="fragment passo"></span> <span class="fragment passo"></span> <span class="fragment passo"></span></p>
 </section>
 <section class="slide level2">
 <h2>O teste de cada coeficiente</h2>
@@ -3880,6 +3973,42 @@ margin: .3em 0 0; white-space: pre; overflow: hidden; box-shadow: none; width: a
 .reveal section#sm-sec pre code { font-size: .55em; }
 .regra-viva:empty { display: none; }
 #sac-contas:empty { display: none; }
+
+.tab-ampliada { position: absolute; left: 0; right: 0; top: 90px; z-index: 30; background: var(--fundo);
+padding: .6em .8em; border: 1px solid var(--superficie-borda); border-radius: 6px;
+box-shadow: 0 10px 40px rgba(0, 0, 0, .18); }
+.tab-ampliada table.tab-mmq { font-size: .95em; }
+.tab-ampliada .tab-res { font-size: .9em; }
+.tab-ampliada .legendas { display: none; }
+.tab-ampliada #mmq-tab { cursor: zoom-out; }
+
+.quebra { display: grid; grid-template-columns: repeat(5, auto); justify-content: start; align-items: center;
+column-gap: .35em; row-gap: .1em; margin: .4em 0; font-size: .95em; }
+.quebra > p { display: contents; }
+.quebra .rot { font-size: .62em; font-weight: 700; text-align: center; letter-spacing: .04em; }
+.quebra .ft { color: var(--texto); }
+.quebra .fr { color: var(--turquesa); }
+.quebra .fe { color: var(--roxo); }
+.quebra .ft:not(.rot), .quebra .fr:not(.rot), .quebra .fe:not(.rot) { border-bottom: 3px solid currentColor; padding-bottom: .1em; }
+.quebra .op { color: var(--texto-fraco); }
+
+.quebra-r2 { font-size: 1.05em; margin: .3em 0 .5em; }
+.quebra-r2 > p { display: flex; flex-wrap: wrap; align-items: center; gap: .4em; }
+.quebra-r2 .peca { display: inline-block; }
+#r2-barra { font-size: .55em; margin: .2em 0 .8em; }
+#r2-barra .r2-trilho { display: flex; height: 1.4em; border-radius: 4px; overflow: hidden; background: var(--superficie); }
+#r2-barra .r2-reg { background: var(--turquesa); transition: opacity .4s; }
+#r2-barra .r2-reg.apagada { opacity: .25; }
+#r2-barra .r2-res { background: var(--roxo); min-width: 6px; transform-origin: center; }
+#r2-barra .r2-res.destaque { box-shadow: 0 0 0 3px var(--fundo), 0 0 0 5px var(--roxo); }
+#r2-barra .r2-leg { display: flex; justify-content: space-between; margin-top: .3em; }
+#r2-barra .r2-leg .c-tq { color: var(--turquesa); font-weight: 700; }
+#r2-barra .r2-leg .c-roxo { color: var(--roxo); font-weight: 700; }
+#r2-barra .r2-conta { font-size: 1.3em; margin-top: .4em; font-family: "JetBrains Mono", monospace; }
+#r2-barra .r2-conta b { color: var(--marca); }
+
+.bt-ctrl { margin-top: .2em; }
+.bt-ctrl .contas { margin-top: 0; }
 </style>
     <script>/*!
  * GSAP 3.12.5
@@ -4366,6 +4495,17 @@ margin: .3em 0 0; white-space: pre; overflow: hidden; box-shadow: none; width: a
          `<div class="tab-res">b1 = ${c(AJ.b1, 4)} &nbsp;·&nbsp; b0 = ${c(AJ.b0, 3)}</div>`;
     caixa.innerHTML = h;
     const sel = (s) => [...caixa.querySelectorAll(s)];
+    // ampliar: a tabela cobre o slide; clicar de novo (ou sair do slide) volta
+    const bz = $("#tab-zoom"), col = caixa.parentElement;
+    const zoom = (on) => {
+      col.classList.toggle("tab-ampliada", on);
+      if (bz) bz.textContent = on ? "reduzir a tabela" : "ampliar a tabela";
+      if (on) gsap.from(caixa, { scale: 0.7, transformOrigin: "top right", duration: 0.35, ease: "power2.out" });
+    };
+    if (bz) bz.addEventListener("click", () => { bz.blur(); zoom(!col.classList.contains("tab-ampliada")); });
+    caixa.addEventListener("click", () => { if (col.classList.contains("tab-ampliada")) zoom(false); });
+    const sec = caixa.closest("section");
+    window.Reveal.on("slidechanged", (e) => { if (e.previousSlide === sec) zoom(false); });
     cena(caixa, (k, anim) => {
       vis(sel("tr.m td:nth-child(-n+3)"), k >= 1, anim);
       vis(sel(".d"), k >= 2, anim);
@@ -4448,7 +4588,9 @@ margin: .3em 0 0; white-space: pre; overflow: hidden; box-shadow: none; width: a
       return { ys, poly: sup.concat(inf).join(" ") };
     }
     const txt = $("#res-texto");
-    const m = modos("res-modos", (anim) => {
+    const ORDEM = ["ideal", "var", "nlin", "out", "dep"];
+    const m = modos("res-modos", (anim) => aplicar(anim));
+    function aplicar(anim) {
       const a = alvo(m.v);
       pts.forEach((p, i) => gsap.to(p, { attr: { cy: sy(a.ys[i]) }, duration: anim ? 0.8 : 0, delay: anim ? i * 0.012 : 0, ease: "power2.inOut" }));
       gsap.to(faixa, { attr: { points: a.poly }, duration: anim ? 0.8 : 0, ease: "power2.inOut" });
@@ -4456,6 +4598,14 @@ margin: .3em 0 0; white-space: pre; overflow: hidden; box-shadow: none; width: a
       tX.textContent = m.v === "dep" ? "tempo" : "x";
       txt.textContent = textos[m.v];
       txt.className = `regra-viva ${m.v === "ideal" ? "nrej" : "rej"}`;
+    }
+    // com as setas, cada passo mostra um padrão (e acende o botão dele)
+    cena(caixa, (k, anim) => {
+      const modo = ORDEM[Math.min(k, ORDEM.length - 1)];
+      if (modo === m.v && anim) return;
+      m.v = modo;
+      $("#res-modos").querySelectorAll("button").forEach((b) => b.classList.toggle("ativo", b.dataset.modo === modo));
+      aplicar(anim);
     });
     const a = alvo("ideal");
     faixa.setAttribute("points", a.poly);
@@ -4540,10 +4690,145 @@ margin: .3em 0 0; white-space: pre; overflow: hidden; box-shadow: none; width: a
       });
       p.addEventListener("pointerup", () => { arr = null; });
     });
-    cena(caixa, (kk, anim) => { k = kk; estado(anim); });
+    const sec = caixa.closest("section");
+    function quebrar(q) {
+      const pec = (c) => [...sec.querySelectorAll(`${q} .${c}`)];
+      const tl = gsap.timeline({ delay: 0.25 });
+      gsap.set([...pec("ft"), ...pec("op"), ...pec("fr"), ...pec("fe")], { autoAlpha: 0 });
+      // o total aparece sozinho, no meio, e depois se abre nas duas partes
+      tl.fromTo(pec("ft").filter((n) => !n.classList.contains("rot")), { autoAlpha: 0, x: 120, scale: 1.25 },
+                { autoAlpha: 1, x: 0, scale: 1, duration: 0.6, ease: "power2.out" })
+        .to(pec("op"), { autoAlpha: 1, duration: 0.25 })
+        .fromTo(pec("fr").filter((n) => !n.classList.contains("rot")), { autoAlpha: 0, x: -140 }, { autoAlpha: 1, x: 0, duration: 0.5, ease: "back.out(1.6)" })
+        .fromTo(pec("fe").filter((n) => !n.classList.contains("rot")), { autoAlpha: 0, x: -260 }, { autoAlpha: 1, x: 0, duration: 0.5, ease: "back.out(1.6)" }, "-=0.2")
+        .fromTo(sec.querySelectorAll(`${q} .rot`), { autoAlpha: 0, y: -10 }, { autoAlpha: 1, y: 0, duration: 0.3, stagger: 0.15 });
+    }
+    function mostrarPecas(q) {
+      gsap.set(sec.querySelectorAll(`${q} .ft, ${q} .op, ${q} .fr, ${q} .fe`), { autoAlpha: 1, x: 0, y: 0, scale: 1 });
+    }
+    cena(caixa, (kk, anim) => {
+      const antes = k;
+      k = kk; estado(anim);
+      if (k === 2) (anim && antes < 2 ? quebrar : mostrarPecas)(".q1");
+      if (k === 3) (anim && antes < 3 ? quebrar : mostrarPecas)(".q2");
+    });
     // ao voltar ao slide, os pontos voltam aos dados originais
     entrar(caixa, () => { MY.forEach((v, i) => { ys[i] = v; }); sel = 2; desenhar(); });
     desenhar();
+  }
+
+  /* ====================================================================== */
+  /* 9b. R²: a fórmula se transforma, com a barra SQT = SQReg + SQRes        */
+  /* ====================================================================== */
+
+  function montarR2() {
+    const caixa = $("#r2-barra");
+    if (!caixa) return;
+    const a = mq(MX, MY), reg = a.sqt - a.sqres, sec = caixa.closest("section");
+    const w = (v) => `${(100 * v) / a.sqt}%`;
+    caixa.innerHTML = `<div class="r2-trilho"><div class="r2-reg" style="width:${w(reg)}"></div>` +
+      `<div class="r2-res" style="width:${w(a.sqres)}"></div></div>` +
+      `<div class="r2-leg"><span class="c-tq">SQReg = ${num(reg, 1)}</span><span>SQT = ${num(a.sqt, 1)}</span>` +
+      `<span class="c-roxo">SQRes = ${num(a.sqres, 1)}</span></div><div class="r2-conta"></div>`;
+    const pecas = [0, 1, 2].map((i) => sec.querySelector(`.quebra-r2 .p${i}`));
+    const conta = caixa.querySelector(".r2-conta");
+    const contas = [
+      `R² = ${num(reg, 1)} / ${num(a.sqt, 1)} = <b>${num(a.r2, 3)}</b>`,
+      `R² = (${num(a.sqt, 1)} − ${num(a.sqres, 1)}) / ${num(a.sqt, 1)} = <b>${num(a.r2, 3)}</b>`,
+      `R² = 1 − ${num(a.sqres, 1)} / ${num(a.sqt, 1)} = <b>${num(a.r2, 3)}</b>`,
+    ];
+    const reg_ = caixa.querySelector(".r2-reg"), res_ = caixa.querySelector(".r2-res");
+    let antes = 0;
+    cena(caixa, (k, anim) => {
+      pecas.forEach((p, i) => {
+        if (!p) return;
+        if (i > k) return gsap.set(p, { autoAlpha: 0 });
+        if (anim && i === k && k > antes) {
+          gsap.fromTo(p, { autoAlpha: 0, x: -60, scale: 0.85 }, { autoAlpha: 1, x: 0, scale: 1, duration: 0.6, ease: "back.out(1.7)" });
+        } else gsap.set(p, { autoAlpha: 1, x: 0, scale: 1 });
+      });
+      // a barra acompanha a peça: SQReg, depois "SQT menos SQRes"
+      reg_.classList.toggle("apagada", k >= 1);
+      res_.classList.toggle("destaque", k >= 1);
+      if (anim && k >= 1 && k > antes) gsap.fromTo(res_, { scaleY: 1.8 }, { scaleY: 1, duration: 0.5, ease: "back.out(2)" });
+      conta.innerHTML = contas[Math.min(k, 2)];
+      antes = k;
+    });
+  }
+
+  /* ====================================================================== */
+  /* 12b. Teste de β1: a inclinação no slider, a t de cada lado              */
+  /* ====================================================================== */
+
+  function montarBT() {
+    const cS = $("#g-bsl"), cT = $("#g-bst");
+    if (!cS || !cT) return;
+    // amostra fixa: x entre 0 e 10 e resíduos ortogonais a x, com EP(b1) = 0,12
+    const N = 20, V = N - 2, EP = 0.12, YM = 10, A = 0.05, TC = qt(1 - A / 2, V);
+    const r = gerador(7);
+    const xs = Array.from({ length: N }, (_, i) => 0.3 + (9.4 * i) / (N - 1));
+    const xm = xs.reduce((u, v) => u + v, 0) / N, sxx = xs.reduce((u, v) => u + (v - xm) ** 2, 0);
+    let e = xs.map(() => r.normal());
+    const em = e.reduce((u, v) => u + v, 0) / N;
+    e = e.map((v) => v - em);
+    const bE = e.reduce((u, v, i) => u + v * (xs[i] - xm), 0) / sxx;
+    e = e.map((v, i) => v - bE * (xs[i] - xm));
+    const sAt = Math.sqrt(e.reduce((u, v) => u + v * v, 0) / V), sAlvo = EP * Math.sqrt(sxx);
+    e = e.map((v) => (v * sAlvo) / sAt);
+
+    // à esquerda: os pontos e a reta
+    const W1 = 620, H1 = 400;
+    const s1 = novoSvg(cS, W1, H1);
+    const o = { x0: 0, x1: 10, y0: 4, y1: 16, L: 60, R: W1 - 20, B: H1 - 60, T: 30, nx: 5, ny: 6, tx: "x", ty: "y" };
+    const { sx, sy } = moldura(s1, o);
+    el("line", { x1: sx(0), x2: sx(10), y1: sy(YM), y2: sy(YM), class: "media" }, s1);
+    texto(s1, o.R, 22, "tracejada: a reta sob H₀ (β₁ = 0)", { "text-anchor": "end", class: "anot fraco" });
+    const reta = el("line", { class: "reta" }, s1);
+    const pts = xs.map((x) => el("circle", { cx: sx(x), r: 7, class: "ponto-dado" }, s1));
+    const tR = texto(s1, o.L + 8, 22, "", { class: "anot forte c-marca-svg" });
+
+    // à direita: a t com 18 graus de liberdade
+    const W2 = 620, H2 = 400, base = 320, z0 = -5.2, z1 = 5.2;
+    const s2 = novoSvg(cT, W2, H2);
+    const tx = escala(z0, z1, 20, W2 - 20), f = (x) => dt(x, V);
+    const ty = escala(0, f(0) * 1.2, base, 40);
+    texto(s2, 20, 22, "sob H₀: T ~ t com 18 graus de liberdade", { class: "anot forte" });
+    el("path", { d: caminhoCurva(f, z0, z1, tx, ty, base), class: "area-neutra" }, s2);
+    el("path", { d: caminhoCurva(f, z0, -TC, tx, ty, base, 80), class: "regiao-alfa" }, s2);
+    el("path", { d: caminhoCurva(f, TC, z1, tx, ty, base, 80), class: "regiao-alfa" }, s2);
+    const pE = el("path", { class: "area-p" }, s2), pD = el("path", { class: "area-p" }, s2);
+    for (const z of [-TC, TC]) {
+      el("line", { x1: tx(z), x2: tx(z), y1: base - 120, y2: base, class: "guia-rc" }, s2);
+      texto(s2, tx(z), base - 128, z < 0 ? `−${num(TC, 3)}` : num(TC, 3), { "text-anchor": "middle", class: "anot c-marca-svg" });
+    }
+    texto(s2, 20, 44, "em azul: α/2 = 2,5% em cada ponta; em laranja: o valor-p", { class: "anot fraco" });
+    eixoX(s2, tx, -5, 5, base, 10, "");
+    const lO = el("line", { class: "linha-obs" }, s2), lE = el("line", { class: "linha-obs espelho" }, s2);
+    const pO = el("circle", { r: 9, class: "ponto-obs" }, s2);
+    const tO = texto(s2, 0, base + 46, "", { "text-anchor": "middle", class: "anot forte c-roxo-svg" });
+
+    const contas = $("#bt-contas"), dec = $("#bt-decisao");
+    const ctl = controle("bt-b", (v) => num(v, 3).replace("-", "−"), desenhar);
+    function desenhar() {
+      const b = ctl.v, b0 = YM - b * xm, t = b / EP, a = Math.abs(t), p = 2 * (1 - pt(a, V));
+      linha(reta, sx(0), sy(b0), sx(10), sy(b0 + 10 * b));
+      pts.forEach((c, i) => c.setAttribute("cy", sy(b0 + b * xs[i] + e[i])));
+      tR.textContent = `ŷ = ${num(b0, 2)} ${b < 0 ? "−" : "+"} ${num(Math.abs(b), 3)}x`;
+      const tc = Math.max(-5, Math.min(5, t)), ac = Math.abs(tc);
+      pE.setAttribute("d", caminhoCurva(f, z0, -ac, tx, ty, base, 80));
+      pD.setAttribute("d", caminhoCurva(f, ac, z1, tx, ty, base, 80));
+      linha(lO, tx(tc), ty(f(tc)), tx(tc), base);
+      linha(lE, tx(-tc), ty(f(tc)), tx(-tc), base);
+      pO.setAttribute("cx", tx(tc)); pO.setAttribute("cy", base);
+      pos(tO, tx(tc), base + 46); tO.textContent = `T = ${num(t, 2).replace("-", "−")}`;
+      contas.innerHTML = `T = b1 / EP = ${num(b, 3).replace("-", "−")} / 0,12 = <b>${num(t, 2).replace("-", "−")}</b><br>` +
+        `valor_p = 2 × (1 − stats.t.cdf(${a.toFixed(2)}, df=18)) = <b>${p4(p)}</b>`;
+      const rj = p < A;
+      dec.className = `regra-viva ${rj ? "rej" : "nrej"}`;
+      dec.innerHTML = `valor-p ${rj ? "&lt;" : "&ge;"} α = 0,05: <b>${rj ? "rejeita H<sub>0</sub>" : "não rejeita H<sub>0</sub>"}</b>. ` +
+        (rj ? "A inclinação é significante: há relação entre x e Y." : "A inclinação pode ser zero: não há evidência de relação.");
+    }
+    ctl.at();
   }
 
   /* ====================================================================== */
@@ -4642,20 +4927,20 @@ margin: .3em 0 0; white-space: pre; overflow: hidden; box-shadow: none; width: a
     const L = [
       [["                            OLS Regression Results                            "]],
       [["=============================================================================="]],
-      [["Dep. Variable:               2010_co2   "], ["R-squared:                       0.561", 4]],
-      [["Model:                            OLS   "], ["Adj. R-squared:                  0.559", 4]],
+      [["Dep. Variable:               2010_co2   "], ["R-squared:                       0.561", 5]],
+      [["Model:                            OLS   "], ["Adj. R-squared:                  0.559", 5]],
       [["Method:                 Least Squares   F-statistic:                     235.2"]],
       [["No. Observations:                 186   AIC:                             1073."]],
       [["Df Residuals:                     184   BIC:                             1080."]],
       [["=============================================================================="]],
-      [["                 "], ["  coef", 1], [" "], ["   std err          t", 2], ["   "], ["  P>|t|", 3], ["      [0.025      0.975]"]],
+      [["                 "], ["  coef", 1], [" "], ["   std err          t", 2], ["   "], ["  P>|t|", 3], ["    "], ["  [0.025      0.975]", 4]],
       [["------------------------------------------------------------------------------"]],
-      [["const            "], ["0.6557", 1], [" "], ["     0.423      1.551", 2], ["   "], ["  0.123", 3], ["      -0.178       1.490"]],
-      [["2010_income      "], ["0.2433", 1], [" "], ["     0.016     15.337", 2], ["   "], ["  0.000", 3], ["       0.212       0.275"]],
+      [["const            "], ["0.6557", 1], [" "], ["     0.423      1.551", 2], ["   "], ["  0.123", 3], ["    "], ["  -0.178       1.490", 4]],
+      [["2010_income      "], ["0.2433", 1], [" "], ["     0.016     15.337", 2], ["   "], ["  0.000", 3], ["    "], ["   0.212       0.275", 4]],
       [["=============================================================================="]],
-      [["Omnibus:                      100.299", 5], ["   "], ["Durbin-Watson:                   2.051", 5]],
-      [["Prob(Omnibus):                  0.000", 5], ["   "], ["Jarque-Bera (JB):             2384.399", 5]],
-      [["Skew:                           1.435   "], ["Prob(JB):                         0.00", 5]],
+      [["Omnibus:                      100.299", 6], ["   "], ["Durbin-Watson:                   2.051", 7]],
+      [["Prob(Omnibus):                  0.000", 6], ["   "], ["Jarque-Bera (JB):             2384.399", 6]],
+      [["Skew:                           1.435   "], ["Prob(JB):                         0.00", 6]],
       [["Kurtosis:                      20.304   Cond. No.                         35.7"]],
       [["=============================================================================="]],
     ];
@@ -4922,7 +5207,7 @@ margin: .3em 0 0; white-space: pre; overflow: hidden; box-shadow: none; width: a
 
   function iniciar() {
     for (const f of [montarSac, montarVP, montarMort, montarPapeis, montarReta, montarMMQ, montarTab, montarH0, montarRes, montarQA,
-                     montarCaus, montarGap, montarSM, montarT, montarPred, montarResid]) {
+                     montarCaus, montarGap, montarSM, montarT, montarPred, montarResid, montarR2, montarBT]) {
       try { f(); } catch (e) { console.error("[s26]", f.name, e); }
     }
     for (const s of document.querySelectorAll(".reveal .slides > section")) atualizar(s, false);
