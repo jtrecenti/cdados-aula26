@@ -1222,6 +1222,7 @@ Julio Trecenti
 <div class="caixa">
 <p><span class="rotulo">Roteiro</span></p>
 <ol type="1">
+<li><strong>Aquecimento no notebook:</strong> um teste t, as sacolas plásticas.</li>
 <li><strong>Aula:</strong> modelo de regressão linear simples.</li>
 <li><strong>Notebook Aula_Atividade:</strong> renda e emissão de CO₂.</li>
 <li><strong>Notebook Aula_Exercícios:</strong> exercícios adaptados de provas passadas.</li>
@@ -1232,33 +1233,116 @@ Julio Trecenti
 </div>
 </section>
 <section class="slide level2 secao">
-<h2>Sobre inferência</h2>
+<h2>Aquecimento: teste t</h2>
 <div class="miudo">
-<p>O que já vimos nas aulas 22 a 25, e que hoje vai aparecer na regressão.</p>
+<p>Um exercício no notebook antes da regressão, com o que vimos na aula passada.</p>
+</div>
+</section>
+<section class="slide level2 denso">
+<h2>Exercício: sacolas plásticas</h2>
+<div class="colunas">
+<div style="flex:1.15">
+<div class="caixa caso">
+<p><span class="rotulo">O problema</span></p>
+<p>Em 2012, antes de os supermercados deixarem de distribuir sacolas plásticas gratuitamente, o consumo mensal por adulto na cidade de São Paulo era, em média, de <strong>25 sacolas</strong>. Depois, os estabelecimentos passaram a cobrar e voltaram atrás.</p>
+<p>Anos depois, uma ONG quer saber se essas idas e vindas deixaram o consumidor mais consciente: o consumo médio <strong>caiu mais de 15%</strong>?</p>
+<p>A ONG monitorou, por um mês, <strong>100 adultos</strong> da cidade: consumo médio amostral de <strong>20,01 sacolas</strong>, com desvio padrão amostral de <strong>6 sacolas</strong>. Use <strong>α = 1%</strong>.</p>
+</div>
+<div class="miudo">
+<p>Notebook Aula24_Exercicio, Exercício 2. Não faz parte da APS 11.</p>
+</div>
+</div>
+<div>
+<div class="caixa exercicio">
+<p><span class="rotulo">No notebook, uns 15 minutos</span></p>
+<ol type="a">
+<li><p>Defina a variável de interesse e escreva as hipóteses em termos do problema e do parâmetro. Quanto vale <span class="math inline">\(\mu_0\)</span>?</p></li>
+<li><p>Qual distribuição usar para a estatística do teste, e com quantos graus de liberdade? Por quê?</p></li>
+<li><p>Decida pela <strong>região crítica</strong> e pelo <strong>valor-p</strong>, com <span class="math inline">\(\alpha = 1\%\)</span>. Conclua em termos do problema.</p></li>
+<li><p>A conclusão mudaria com <span class="math inline">\(\alpha = 5\%\)</span>?</p></li>
+</ol>
+</div>
+</div>
 </div>
 </section>
 <section class="slide level2">
-<h2>Inferência</h2>
+<h2>Sacolas plásticas: a resolução</h2>
+<div class="colunas">
+<div style="flex:1.45">
+<div id="g-sac">
+
+</div>
+</div>
+<div>
+<div id="leg-sac" class="legendas">
+<div>
+<p><span class="math inline">\(X\)</span>: consumo mensal de sacolas de um adulto em SP, com <span class="math inline">\(\mu\)</span> e <span class="math inline">\(\sigma\)</span> <strong>desconhecidos</strong>. Cair mais de 15% é ficar abaixo de <span class="math inline">\(0{,}85 \times 25 = 21{,}25\)</span>:</p>
+<p><span class="math inline">\(H_0: \mu = 21{,}25\)</span> contra <span class="math inline">\(H_1: \mu &lt; 21{,}25\)</span>.</p>
+</div>
+<div>
+<p><span class="math inline">\(\sigma\)</span> desconhecido: padronizamos com <span class="math inline">\(s\)</span>, e sob <span class="math inline">\(H_0\)</span> <span class="math inline">\(t = \dfrac{\bar X - \mu_0}{S/\sqrt n} \sim t_{(99)}\)</span>. Unicaudal <strong>à esquerda</strong>: a região crítica fica na ponta esquerda.</p>
+</div>
+<div>
+<p><span class="math inline">\(t_{obs} = \dfrac{20{,}01 - 21{,}25}{6/\sqrt{100}} = -2{,}067\)</span></p>
+</div>
+<div>
+<p>valor-p <span class="math inline">\(= P(t_{(99)} \le -2{,}067)\)</span>, a área à esquerda do observado.</p>
+</div>
+</div>
+<div id="sac-modos" class="botoes botoes-modo">
+<button data-modo="0.01" class="ativo">
+α = 1%
+</button>
+<button data-modo="0.05">
+α = 5%
+</button>
+<button data-modo="0.10">
+α = 10%
+</button>
+</div>
+<div id="sac-contas" class="contas">
+
+</div>
+<div id="sac-decisao" class="regra-viva">
+
+</div>
+</div>
+</div>
+<p><span class="fragment passo"></span> <span class="fragment passo"></span> <span class="fragment passo"></span></p>
+</section>
+<section class="slide level2 denso">
+<h2>Sacolas plásticas: o que levar daqui</h2>
 <div class="colunas">
 <div>
-<p><strong>Inferência estatística</strong> consiste em fazer afirmações (tomar decisões) sobre características <strong>populacionais</strong> utilizando evidências fornecidas por uma <strong>amostra</strong> extraída dessa população.</p>
-<div class="caixa fragment">
-<p><span class="rotulo">O nível de significância</span></p>
-<p>Fixar um valor para <span class="math inline">\(\alpha\)</span> permite buscar uma regra de decisão (uma <strong>região crítica</strong>) que aponta quais resultados amostrais levam a rejeitar <span class="math inline">\(H_0\)</span>, ou seja, a concluir pelo que diz <span class="math inline">\(H_A\)</span>.</p>
-<p><span class="math inline">\(\alpha\)</span> é a probabilidade do erro tipo I, usualmente fixada em 1%, 5% ou 10%.</p>
+<div class="caixa exercicio">
+<p><span class="rotulo">A conclusão</span></p>
+<p>Com <span class="math inline">\(\alpha = 1\%\)</span>: valor-p <span class="math inline">\(= 0{,}021 &gt; 0{,}01\)</span> e <span class="math inline">\(t_{obs} = -2{,}067\)</span> não está na região crítica, que é <span class="math inline">\(t &lt; -2{,}365\)</span>. <strong>Não rejeitamos <span class="math inline">\(H_0\)</span></strong>: não há evidência, a 1%, de que o consumo caiu mais de 15%.</p>
+<p>Com <span class="math inline">\(\alpha = 5\%\)</span>, a mesma amostra levaria a rejeitar <span class="math inline">\(H_0\)</span>.</p>
 </div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href aria-hidden="true" tabindex="-1"></a>t_obs <span class="op">=</span> (xbarra <span class="op">-</span> mu0) <span class="op">/</span> (s <span class="op">/</span> np.sqrt(n))</span>
+<span id="cb1-2"><a href aria-hidden="true" tabindex="-1"></a>t_c <span class="op">=</span> stats.t.ppf(alpha, df<span class="op">=</span>n<span class="op">-</span><span class="dv">1</span>)  <span class="co"># à esquerda</span></span>
+<span id="cb1-3"><a href aria-hidden="true" tabindex="-1"></a>valor_p <span class="op">=</span> stats.t.cdf(t_obs, df<span class="op">=</span>n<span class="op">-</span><span class="dv">1</span>)</span></code></pre></div>
 </div>
 <div>
-<div class="caixa ideia fragment">
-<p><span class="rotulo">Valor-p</span></p>
-<p>O valor-p é a probabilidade de obter um resultado <strong>igual ao da amostra ou mais extremo</strong>, sob <span class="math inline">\(H_0\)</span> verdadeira.</p>
-<p>Se o teste for <strong>bicaudal</strong>, “mais extremo” inclui os valores simétricos nas duas pontas.</p>
+<div class="caixa atencao fragment">
+<p><span class="rotulo">Pegadinha 1: o <span class="math inline">\(\mu_0\)</span></span></p>
+<p>Testar <span class="math inline">\(\mu = 25\)</span> responde outra pergunta (“o consumo caiu?”). Com <span class="math inline">\(\mu_0 = 25\)</span>, <span class="math inline">\(t_{obs} = -8{,}32\)</span> e a rejeição seria fácil demais.</p>
 </div>
 <div class="caixa atencao fragment">
-<p><span class="rotulo">Regra geral de decisão</span></p>
-<p>Se <strong>valor-p <span class="math inline">\(&lt; \alpha\)</span></strong>, então rejeita-se a hipótese nula.</p>
+<p><span class="rotulo">Pegadinha 2: uma ou duas caudas</span></p>
+<p><span class="math inline">\(H_1\)</span> tem “<span class="math inline">\(&lt;\)</span>”: o valor crítico é <code>stats.t.ppf(alpha, df=n-1)</code>, e não <code>ppf(1 - alpha/2)</code>, que é do teste bicaudal.</p>
+</div>
+<div class="caixa ideia fragment">
+<p><span class="rotulo">Para a regressão</span></p>
+<p>Hoje a mesma conta, (estimativa − valor sob <span class="math inline">\(H_0\)</span>) / erro padrão, volta no teste de <span class="math inline">\(H_0: \beta_1 = 0\)</span>, que é <strong>bicaudal</strong>.</p>
 </div>
 </div>
+</div>
+</section>
+<section class="slide level2 secao">
+<h2>Sobre inferência</h2>
+<div class="miudo">
+<p>O que já vimos nas aulas 22 a 25, e que hoje vai aparecer na regressão.</p>
 </div>
 </section>
 <section class="slide level2">
@@ -1631,11 +1715,11 @@ mínimos quadrados
 <div>
 <p><span class="math display">\[\hat\beta_1 = \frac{\sum_{i=1}^{n} (x_i - \bar x)(y_i - \bar y)}{\sum_{i=1}^{n} (x_i - \bar x)^2} = \frac{S_{XY}}{S_{XX}}\]</span></p>
 <p><span class="math display">\[\hat\beta_0 = \bar y - \hat\beta_1\, \bar x\]</span></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href aria-hidden="true" tabindex="-1"></a>xbarra, ybarra <span class="op">=</span> x.mean(), y.mean()</span>
-<span id="cb1-2"><a href aria-hidden="true" tabindex="-1"></a>Sxy <span class="op">=</span> ((x <span class="op">-</span> xbarra) <span class="op">*</span> (y <span class="op">-</span> ybarra)).<span class="bu">sum</span>()</span>
-<span id="cb1-3"><a href aria-hidden="true" tabindex="-1"></a>Sxx <span class="op">=</span> ((x <span class="op">-</span> xbarra)<span class="op">**</span><span class="dv">2</span>).<span class="bu">sum</span>()</span>
-<span id="cb1-4"><a href aria-hidden="true" tabindex="-1"></a>b1 <span class="op">=</span> Sxy <span class="op">/</span> Sxx</span>
-<span id="cb1-5"><a href aria-hidden="true" tabindex="-1"></a>b0 <span class="op">=</span> ybarra <span class="op">-</span> b1 <span class="op">*</span> xbarra</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href aria-hidden="true" tabindex="-1"></a>xbarra, ybarra <span class="op">=</span> x.mean(), y.mean()</span>
+<span id="cb2-2"><a href aria-hidden="true" tabindex="-1"></a>Sxy <span class="op">=</span> ((x <span class="op">-</span> xbarra) <span class="op">*</span> (y <span class="op">-</span> ybarra)).<span class="bu">sum</span>()</span>
+<span id="cb2-3"><a href aria-hidden="true" tabindex="-1"></a>Sxx <span class="op">=</span> ((x <span class="op">-</span> xbarra)<span class="op">**</span><span class="dv">2</span>).<span class="bu">sum</span>()</span>
+<span id="cb2-4"><a href aria-hidden="true" tabindex="-1"></a>b1 <span class="op">=</span> Sxy <span class="op">/</span> Sxx</span>
+<span id="cb2-5"><a href aria-hidden="true" tabindex="-1"></a>b0 <span class="op">=</span> ybarra <span class="op">-</span> b1 <span class="op">*</span> xbarra</span></code></pre></div>
 <div class="miudo">
 <p>A mesma estratégia pode ser estendida a regressões com mais variáveis explicativas (próxima aula).</p>
 </div>
@@ -1918,10 +2002,10 @@ não independência
 <h2>A saída do <code>statsmodels.OLS</code></h2>
 <div class="colunas">
 <div style="flex:1.35">
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb2-2"><a href aria-hidden="true" tabindex="-1"></a>X_dados <span class="op">=</span> sm.add_constant(x_dados)  <span class="co"># coluna de 1s</span></span>
-<span id="cb2-3"><a href aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> sm.OLS(y_dados, X_dados).fit()</span>
-<span id="cb2-4"><a href aria-hidden="true" tabindex="-1"></a>results.summary()</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb3-2"><a href aria-hidden="true" tabindex="-1"></a>X_dados <span class="op">=</span> sm.add_constant(x_dados)  <span class="co"># coluna de 1s</span></span>
+<span id="cb3-3"><a href aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> sm.OLS(y_dados, X_dados).fit()</span>
+<span id="cb3-4"><a href aria-hidden="true" tabindex="-1"></a>results.summary()</span></code></pre></div>
 <div id="sm-saida">
 
 </div>
@@ -2018,9 +2102,9 @@ const (β<sub>0</sub>)
 <p><span class="rotulo">Exercícios 4 e 5 do notebook</span></p>
 <p>Com <code>results.resid</code>, faça o histograma e o gráfico Q-Q dos resíduos. Você acha que os resíduos formam uma normal?</p>
 </div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href aria-hidden="true" tabindex="-1"></a>residuos <span class="op">=</span> results.resid</span>
-<span id="cb3-2"><a href aria-hidden="true" tabindex="-1"></a>stats.probplot(residuos, dist<span class="op">=</span><span class="st">&#39;norm&#39;</span>,</span>
-<span id="cb3-3"><a href aria-hidden="true" tabindex="-1"></a>               plot<span class="op">=</span>plt)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href aria-hidden="true" tabindex="-1"></a>residuos <span class="op">=</span> results.resid</span>
+<span id="cb4-2"><a href aria-hidden="true" tabindex="-1"></a>stats.probplot(residuos, dist<span class="op">=</span><span class="st">&#39;norm&#39;</span>,</span>
+<span id="cb4-3"><a href aria-hidden="true" tabindex="-1"></a>               plot<span class="op">=</span>plt)</span></code></pre></div>
 <div id="leg-resid" class="legendas">
 <div>
 <p>Os resíduos se concentram perto de zero…</p>
@@ -2108,7 +2192,7 @@ const (β<sub>0</sub>)
 <div class="caixa">
 <p><span class="rotulo">Agenda</span></p>
 <ul>
-<li>A <strong>APS 12</strong> (regressão linear) abre e fecha hoje, às 23h59; a <strong>APS 11</strong> fecha em 19/11.</li>
+<li>A <strong>APS 12</strong> (regressão linear) abre hoje e fecha em 17/11 (ter), às 23h59; a <strong>APS 11</strong> fecha em 19/11.</li>
 <li><strong>Projeto 3</strong> começou, com entrega em 24/11. Trios: regressão e ML só com o ano de 2025. Quartetos: regressão em 2019 e 2025, comparando, e ML em 2025.</li>
 <li><strong>Próxima aula (17/11):</strong> regressão linear <strong>múltipla</strong>.</li>
 </ul>
@@ -3794,6 +3878,8 @@ margin: .3em 0 0; white-space: pre; overflow: hidden; box-shadow: none; width: a
 #sm-saida + * { margin-top: 0; }
 #t-contas { font-size: .5em; }
 .reveal section#sm-sec pre code { font-size: .55em; }
+.regra-viva:empty { display: none; }
+#sac-contas:empty { display: none; }
 </style>
     <script>/*!
  * GSAP 3.12.5
@@ -4648,6 +4734,105 @@ margin: .3em 0 0; white-space: pre; overflow: hidden; box-shadow: none; width: a
   }
 
   /* ====================================================================== */
+  /* 0. Aquecimento: o teste t das sacolas plásticas                         */
+  /* ====================================================================== */
+
+  /* beta incompleta regularizada (como na aula 25), para a acumulada da t */
+  function betacf(a, b, x) {
+    const qab = a + b, qap = a + 1, qam = a - 1;
+    let c = 1, d = 1 - (qab * x) / qap;
+    if (Math.abs(d) < 1e-300) d = 1e-300;
+    d = 1 / d;
+    let h = d;
+    for (let m = 1; m <= 300; m++) {
+      const m2 = 2 * m;
+      let aa = (m * (b - m) * x) / ((qam + m2) * (a + m2));
+      d = 1 + aa * d; if (Math.abs(d) < 1e-300) d = 1e-300;
+      c = 1 + aa / c; if (Math.abs(c) < 1e-300) c = 1e-300;
+      d = 1 / d; h *= d * c;
+      aa = (-(a + m) * (qab + m) * x) / ((a + m2) * (qap + m2));
+      d = 1 + aa * d; if (Math.abs(d) < 1e-300) d = 1e-300;
+      c = 1 + aa / c; if (Math.abs(c) < 1e-300) c = 1e-300;
+      d = 1 / d;
+      const del = d * c;
+      h *= del;
+      if (Math.abs(del - 1) < 1e-12) break;
+    }
+    return h;
+  }
+  function ibeta(x, a, b) {
+    if (x <= 0) return 0;
+    if (x >= 1) return 1;
+    const bt = Math.exp(lgama(a + b) - lgama(a) - lgama(b) + a * Math.log(x) + b * Math.log(1 - x));
+    return x < (a + 1) / (a + b + 2) ? (bt * betacf(a, b, x)) / a : 1 - (bt * betacf(b, a, 1 - x)) / b;
+  }
+  /* stats.t.cdf e stats.t.ppf */
+  function pt(x, v) {
+    const cauda = 0.5 * ibeta(v / (v + x * x), v / 2, 0.5);
+    return x > 0 ? 1 - cauda : cauda;
+  }
+  function qt(p, v) {
+    let lo = -60, hi = 60;
+    for (let i = 0; i < 90; i++) {
+      const m = (lo + hi) / 2;
+      if (pt(m, v) < p) lo = m; else hi = m;
+    }
+    return (lo + hi) / 2;
+  }
+
+  function montarSac() {
+    const caixa = $("#g-sac");
+    if (!caixa) return;
+    const N = 100, V = N - 1, XB = 20.01, S = 6, M0 = 0.85 * 25, TO = (XB - M0) / (S / Math.sqrt(N));
+    const W = 760, H = 440, base = 330, z0 = -4, z1 = 4;
+    const svg = novoSvg(caixa, W, H);
+    const sx = escala(z0, z1, 20, W - 20), f = (x) => dt(x, V);
+    const sy = escala(0, f(0) * 1.2, base, 40);
+    texto(svg, 20, 24, "sob H₀: t ~ distribuição t com 99 graus de liberdade", { class: "anot forte" });
+    el("path", { d: caminhoCurva(f, z0, z1, sx, sy, base), class: "area-neutra" }, svg);
+    const gRC = el("g", {}, svg);
+    const rc = el("path", { class: "regiao-alfa" }, gRC);
+    const lRC = el("line", { y1: base - 150, y2: base, class: "guia-rc" }, gRC);
+    const tRC = texto(gRC, 0, base - 158, "", { "text-anchor": "middle", class: "anot c-marca-svg" });
+    const tRCa = texto(gRC, 0, 0, "", { "text-anchor": "middle", class: "anot c-marca-svg" });
+    const pV = el("path", { class: "area-p" }, svg);
+    eixoX(svg, sx, z0, z1, base, 8, "");
+    const gO = el("g", {}, svg);
+    el("line", { x1: sx(TO), x2: sx(TO), y1: sy(f(TO)), y2: base, class: "linha-obs" }, gO);
+    el("circle", { cx: sx(TO), cy: base, r: 9, class: "ponto-obs" }, gO);
+    texto(gO, sx(TO), base + 50, "t_obs = −2,067", { "text-anchor": "middle", class: "anot forte c-roxo-svg" });
+    const contas = $("#sac-contas"), dec = $("#sac-decisao");
+    const pval = pt(TO, V);
+    let k = 0;
+    const m = modos("sac-modos", (anim) => desenhar(anim));
+    function desenhar(anim) {
+      const a = +m.v, tc = qt(a, V);
+      rc.setAttribute("d", caminhoCurva(f, z0, tc, sx, sy, base, 80));
+      linha(lRC, sx(tc), base - 150, sx(tc), base);
+      pos(tRC, sx(tc), base - 158); tRC.textContent = `t_c = ${num(tc, 3).replace("-", "−")}`;
+      pos(tRCa, sx(-3.3), base - 40); tRCa.textContent = `área α = ${pct(a)}`;
+      vis(gRC, k >= 1, anim);
+      cair(gO, k >= 2, anim && !gO._caiu);
+      gO._caiu = k >= 2;
+      pV.setAttribute("d", k >= 3 ? caminhoCurva(f, z0, TO, sx, sy, base, 80) : "");
+      const linhas = [];
+      if (k >= 1) linhas.push(`t_c = stats.t.ppf(${a}, df=99) = <b>${num(tc, 3).replace("-", "−")}</b>`);
+      if (k >= 2) linhas.push(`t_obs = (20,01 − 21,25) / (6/√100) = <b>−2,067</b>`);
+      if (k >= 3) linhas.push(`valor_p = stats.t.cdf(−2.067, df=99) = <b>${num(pval, 4)}</b>`);
+      contas.innerHTML = linhas.join("<br>");
+      if (k >= 2) {
+        const r = TO < tc;
+        dec.className = `regra-viva ${r ? "rej" : "nrej"}`;
+        dec.innerHTML = k >= 3
+          ? `valor-p ${r ? "&lt;" : "&gt;"} α = ${pct(a)}: <b>${r ? "rejeita H<sub>0</sub>" : "não rejeita H<sub>0</sub>"}</b>`
+          : `t_obs ${r ? "dentro" : "fora"} da região crítica: <b>${r ? "rejeita H<sub>0</sub>" : "não rejeita H<sub>0</sub>"}</b>`;
+      } else { dec.className = "regra-viva"; dec.innerHTML = ""; }
+    }
+    cena(caixa, (kk, anim) => { k = kk; desenhar(anim); });
+    desenhar(false);
+  }
+
+  /* ====================================================================== */
   /* 14. Previsão: o valor de y na reta                                      */
   /* ====================================================================== */
 
@@ -4736,7 +4921,7 @@ margin: .3em 0 0; white-space: pre; overflow: hidden; box-shadow: none; width: a
   }
 
   function iniciar() {
-    for (const f of [montarVP, montarMort, montarPapeis, montarReta, montarMMQ, montarTab, montarH0, montarRes, montarQA,
+    for (const f of [montarSac, montarVP, montarMort, montarPapeis, montarReta, montarMMQ, montarTab, montarH0, montarRes, montarQA,
                      montarCaus, montarGap, montarSM, montarT, montarPred, montarResid]) {
       try { f(); } catch (e) { console.error("[s26]", f.name, e); }
     }
